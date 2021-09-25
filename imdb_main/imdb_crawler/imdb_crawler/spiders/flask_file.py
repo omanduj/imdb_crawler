@@ -20,7 +20,7 @@ def search_movies_of_genre():
                 'movie_info': data
             }))
 
-@app.route("/movies/genre", methods = ["GET"])
+@app.route("/movies/genre", methods = ["GET"]) #FIX
 def get_movies_of_genre():
     data = fix_data(movies_info)
     return(jsonify({'movies': data}))
@@ -29,7 +29,6 @@ def get_movies_of_genre():
 def find_avg_stars_per_genre():
     some_json = request.get_json()
     movies_info = find_avg_stars(some_json['genre'])
-    # data = fix_data(movies_info)
     return(
         jsonify({
                 'Avarage for stars for genre': movies_info
@@ -39,7 +38,6 @@ def find_avg_stars_per_genre():
 def find_avg_runtime_per_genre():
     some_json = request.get_json()
     movies_info = avg_runtime_genre(some_json['genre'])
-    # data = fix_data(movies_info)
     return(
         jsonify({
                 'Avarage runtime for genre': movies_info #fix the over case -> 17:66
