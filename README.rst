@@ -25,3 +25,5 @@ For Posts:
 
 For Gets:
     http://127.0.0.1:5000/movies -> Shows all info on all movies
+
+Material Dashboard React Tweet
