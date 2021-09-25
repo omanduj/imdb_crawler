@@ -3,12 +3,20 @@ import json
 import sqlite3
 
 def get_json():
+    """Purpose: To load data from output of scrappy web crawler
+       Paramaters: N/a
+       Return Value: data = All data obtained by web crawler
+    """
     file = open('A.json',)
     data = json.load(file)
     file.close()
     return data
 
 def fill_movies(movie_json):
+    """Purpose: Fills SQL database with info on movies
+       Paramaters: movie_json = Information of all movies obtained from web crawler
+       Return Value: N/a
+    """
     count = 0
     for line in range(len(movie_json)):
         if movie_json[count]['stars'] == None:
@@ -30,11 +38,15 @@ def remove_duplicates():
     return duplicates
 
 def fix_data(data):
+    """Purpose: Reorganize data to fit JSON format
+       Paramaters: data = Information about movies
+       Return Value: movie_dict = A dictionary of reorganized data
+    """
     movie_info = 0
-    dict1 = {}
+    movie_dict = {}
     for movie in range(len(data)):
         print(movie)
-        dict1[movie_info] = {
+        movie_dict[movie_info] = {
                              'stars': data[movie][6],
                              'personal_rating': data[movie][7],
                              'name': data[movie][1],
@@ -44,9 +56,13 @@ def fix_data(data):
                              'release_date': data[movie][2],
                              }
         movie_info +=1
-    return dict1
+    return movie_dict
 
 def select_genre(genre):
+    """Purpose: To select all movies of X genre
+       Paramaters: genre = Genre of movie
+       Return Value: movies_of_genre = All movies of X genre
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -59,6 +75,10 @@ def select_genre(genre):
     return movies_of_genre
 
 def find_avg_stars(genre):  #ISSUE WITH DUPLICATES
+    """Purpose: To find average amount of stars for X genre
+       Paramaters: genre = Genre of movie
+       Return Value: stars_of_genre = Integer of stars
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -70,6 +90,10 @@ def find_avg_stars(genre):  #ISSUE WITH DUPLICATES
     return float(str(stars_of_genre[0][0])[:5])
 
 def avg_runtime_genre(genre):
+    """Purpose: To find average runtime for X genre
+       Paramaters: genre = Genre of movie
+       Return Value: str_final = Formatted average duration for X genre
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -78,13 +102,16 @@ def avg_runtime_genre(genre):
 
     conn.commit()
     conn.close()
-    x = ''
-    x += str(float(str(runtime_of_movie[0][0])[:5]))
-    x += ' min'
-    return x
+    str_final = ''
+    str_final += str(float(str(runtime_of_movie[0][0])[:5]))
+    str_final += ' min'
+    return str_final
 
 def update_personal_rating(my_rating, movie):
-    # genre_of_movie = select_genre(genre)
+    """Purpose: To update personal rating for a given movie
+       Paramaters: my_rating = Rating that will be given to movie, movie = Movie that will take personal rating
+       Return Value: N/a
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -95,6 +122,10 @@ def update_personal_rating(my_rating, movie):
     conn.close()
 
 def random_movie_picker(genre, personal_rating):
+    """Purpose: To pick random movie given X specifications
+       Paramaters: genre = Genre of movies being considered, personal_rating = personal rating being considered
+       Return Value: random information of a single movie in json format
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -106,6 +137,10 @@ def random_movie_picker(genre, personal_rating):
     return genre_of_movie
 
 def see_all():
+    """Purpose: To see all data in database
+       Paramaters: N/a
+       Return Value: movies = all info in database
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
