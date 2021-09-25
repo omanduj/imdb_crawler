@@ -17,6 +17,35 @@ def fill_movies(movie_json):
                         movie_json[count]['runtime'], movie_json[count]['genre'], float(movie_json[count]['stars']))
         count += 1
 
+def remove_duplicates():
+    conn = sqlite3.connect("movie.db")
+    c = conn.cursor()
+
+    c.execute("""WITH CTE AS '(SELECT *, RN = ROW_NUMBER() OVER (PARTITION BY id ORDER BY id) FROM movie_info)'""")
+    c.execute("""DELETE FROM CTE WHERE RN > 1""")
+    conn.commit()
+    conn.close()
+
+    print(x)
+    return duplicates
+
+def fix_data(data):
+    movie_info = 0
+    dict1 = {}
+    for movie in range(len(data)):
+        print(movie)
+        dict1[movie_info] = {
+                             'stars': data[movie][6],
+                             'personal_rating': data[movie][7],
+                             'name': data[movie][1],
+                             'genre': data[movie][5],
+                             'viewer_rating': data[movie][3],
+                             'runtime': data[movie][4],
+                             'release_date': data[movie][2],
+                             }
+        movie_info +=1
+    return dict1
+
 def select_genre(genre):
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
@@ -29,19 +58,6 @@ def select_genre(genre):
 
     return movies_of_genre
 
-def remove_duplicates():
-    conn = sqlite3.connect("movie.db")
-    c = conn.cursor()
-
-    c.execute("""WITH CTE AS '(SELECT *, RN = ROW_NUMBER() OVER (PARTITION BY id ORDER BY id) FROM movie_info)'""")
-    c.execute("""DELETE FROM CTE WHERE RN > 1""")
-    conn.commit()
-    conn.close()
-
-
-    print(x)
-    return duplicates
-
 def find_avg_stars(genre):  #ISSUE WITH DUPLICATES
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
@@ -51,19 +67,21 @@ def find_avg_stars(genre):  #ISSUE WITH DUPLICATES
 
     conn.commit()
     conn.close()
-    return stars_of_genre[0][0]
+    return float(str(stars_of_genre[0][0])[:5])
 
 def avg_runtime_genre(genre):
-    # genre_of_movie = select_genre(genre)
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
     c.execute("""SELECT AVG(runtime) FROM movie_info WHERE genre like '%{}%'""".format(genre))
-    genre_of_movie = c.fetchall()
+    runtime_of_movie = c.fetchall()
 
     conn.commit()
     conn.close()
-    return float(str(genre_of_movie[0][0])[:5])
+    x = ''
+    x += str(float(str(runtime_of_movie[0][0])[:5]))
+    x += ' min'
+    return x
 
 def update_personal_rating(my_rating, movie):
     # genre_of_movie = select_genre(genre)
@@ -87,6 +105,16 @@ def random_movie_picker(genre, personal_rating):
     conn.close()
     return genre_of_movie
 
+def see_all():
+    conn = sqlite3.connect("movie.db")
+    c = conn.cursor()
+
+    c.execute("""SELECT * FROM movie_info""")
+    movies = c.fetchall()
+
+    conn.commit()
+    conn.close()
+    return movies
 
 def main():
     # data_base_setup()
@@ -96,13 +124,15 @@ def main():
 
     # movies_of_genre = select_genre("Short")
     update_personal_rating(10, "The Snowtown Crimes")
-    # movies_of_genre = select_genre("Short")
+    movies_of_genre = select_genre("Short")
     # avg_of_movies = find_avg_stars("Crime")
-    # avg_runtime_genreX = avg_runtime_genre("Crime")
-
+    avg_runtime_genreX = avg_runtime_genre("Short")
+    # print(avg_runtime_genreX)
+    # x = (["The Snowtown Crimes", 5, "5 min", "Documentary, Short, Biography", 7.2, 5],["Sex, Fame and Murder: The Luka Magnotta Story","Not Rated","43 min","Documentary, Short, Crime",10.2,5])
+    # fix_data(x)
     x = random_movie_picker("Short", 5)
-
     print(x)
+
 main()
 
 #idea of personal rating for every movie
