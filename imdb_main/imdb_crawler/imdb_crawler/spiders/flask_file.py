@@ -5,13 +5,13 @@ from logic import select_genre, find_avg_stars, avg_runtime_genre, update_person
 app = Flask(__name__)
 
 @app.route("/movies", methods = ["GET"])
-def main0():
+def see_all_info():
     movies_info = see_all()
     data = fix_data(movies_info)
     return(jsonify({'movies': data}))
 
 @app.route("/movies/genre", methods = ["POST"])
-def main():
+def search_movies_of_genre():
     some_json = request.get_json()
     movies_info = select_genre(some_json['genre'])
     data = fix_data(movies_info)
@@ -21,12 +21,12 @@ def main():
             }))
 
 @app.route("/movies/genre", methods = ["GET"])
-def main2():
+def get_movies_of_genre():
     data = fix_data(movies_info)
     return(jsonify({'movies': data}))
 
 @app.route("/movies/genre/average", methods = ["POST"])
-def main3():
+def find_avg_stars_per_genre():
     some_json = request.get_json()
     movies_info = find_avg_stars(some_json['genre'])
     # data = fix_data(movies_info)
@@ -36,7 +36,7 @@ def main3():
             }))
 
 @app.route("/movies/genre/runtime/average", methods = ["POST"])
-def main4():
+def find_avg_runtime_per_genre():
     some_json = request.get_json()
     movies_info = avg_runtime_genre(some_json['genre'])
     # data = fix_data(movies_info)
@@ -46,7 +46,7 @@ def main4():
             }))
 
 @app.route("/movies/update/personal_rating", methods = ["POST"])
-def main5():
+def update_personal_rating():
     some_json = request.get_json()
     movies_info = update_personal_rating(some_json['my_rating'], some_json['movie'])
     return(
@@ -55,7 +55,7 @@ def main5():
             }))
 
 @app.route("/movies/random/movie", methods = ["POST"])
-def main6():
+def get_random_movie():
     some_json = request.get_json()
     movies_info = random_movie_picker(some_json['genre'], some_json['personal'])
     info = fix_data(movies_info)
