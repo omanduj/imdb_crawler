@@ -1,6 +1,10 @@
 import sqlite3
 
 def data_base_setup():
+    """Purpose: To set up database that will be used
+       Paramaters: N/a
+       Return Value: N/a
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -13,13 +17,20 @@ def data_base_setup():
                 viewer_rating text,
                 runtime text,
                 genre text,
-                stars text
+                stars integer,
+                personal_rating integer
             ) """)
 
     conn.commit()
     conn.close()
 
 def insert_info(name, release_date, viewer_rating, runtime, genre, stars):
+    """Purpose: To fill data columns in movie_info database
+       Paramaters: name = Name of movie, release_date = Date of move release, viewer_rating = The
+                    rating given to the movie for age viewing, runtime = The duration of movie,
+                    genre = Genre of movie, stars = The star rating of movie
+       Return Value: N/a
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
@@ -32,6 +43,10 @@ def insert_info(name, release_date, viewer_rating, runtime, genre, stars):
     conn.close()
 
 def see_all():
+    """Purpose: To view all info in the data base
+       Paramaters: N/a
+       Return Value: N/a
+    """
     conn = sqlite3.connect("movie.db")
     c = conn.cursor()
 
