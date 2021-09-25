@@ -1,18 +1,19 @@
-Crawler imdb move database
-To use create virtual env
-run virtual env and install scrapy
-with scrapy downloaded go to folder with spiders folder
-and type scrapy crawl "name_of_spider", in this case imdb
+Description:
+    Crawler imdb move database
+    To use create virtual env
+    run virtual env and install scrapy
+    with scrapy downloaded go to folder with spiders folder
+    and type scrapy crawl "name_of_spider", in this case imdb
 
-How to use:
-1. Run poetry add
-2. Cd into correct file and run "poetry run python flask_file.py" in the terminal
+How to Use:
+    1. Run poetry add
+    2. Cd into correct file and run "poetry run python flask_file.py" in the terminal
 
-useful notes:
-scrapy shell "website"
-responce.css("div.XX::text").get()
-virtualvenv
-source venv/bin/activate
+Useful Notes:
+    scrapy shell "website"
+    responce.css("div.XX::text").get()
+    virtualvenv
+    source venv/bin/activate
 
 To execute endpoints:
 
@@ -25,5 +26,3 @@ For Posts:
 
 For Gets:
     http://127.0.0.1:5000/movies -> Shows all info on all movies
-
-Material Dashboard React Tweet
