@@ -156,19 +156,19 @@ def main():
     information = get_json()
     fill_movies(information)
     # remove_duplicates()
-
+main()
     # movies_of_genre = select_genre("Short")
-    update_personal_rating(10, "The Snowtown Crimes")
-    movies_of_genre = select_genre("Short")
+    # update_personal_rating(10, "The Snowtown Crimes")
+    # movies_of_genre = select_genre("Short")
     # avg_of_movies = find_avg_stars("Crime")
-    avg_runtime_genreX = avg_runtime_genre("Short")
+    # avg_runtime_genreX = avg_runtime_genre("Short")
     # print(avg_runtime_genreX)
     # x = (["The Snowtown Crimes", 5, "5 min", "Documentary, Short, Biography", 7.2, 5],["Sex, Fame and Murder: The Luka Magnotta Story","Not Rated","43 min","Documentary, Short, Crime",10.2,5])
     # fix_data(x)
-    x = random_movie_picker("Short", 5)
-    print(x)
+    # x = random_movie_picker("Short", 5)
+    # print(x)
 
-main()
+# main()
 
 #idea of personal rating for every movie
     #can search for movies of X personal rating
