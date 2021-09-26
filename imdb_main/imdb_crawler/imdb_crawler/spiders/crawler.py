@@ -3,8 +3,8 @@ from imdb_crawler.items import ImdbCrawlerItem
 
 class imdbSpider(scrapy.Spider):
     name = "imdb"
-    start_urls = ["https://www.imdb.com/search/keyword/?keywords=supernatural&pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=bdc91cb7-0144-4906-b072-b45760c8aa67&pf_rd_r=YMV6XVFC7M2DSZVZ2V7Z&pf_rd_s=right-1&pf_rd_t=15051&pf_rd_i=genre&ref_=ft_gnr_kw_16",
-        "https://www.imdb.com/search/title/?genres=short,crime&genres=Documentary&explore=genres&ref_=adv_explore_rhs"]
+    start_urls = ["https://www.imdb.com/search/title/?genres=thriller&sort=user_rating,desc&title_type=feature&num_votes=25000,&pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=5aab685f-35eb-40f3-95f7-c53f09d542c3&pf_rd_r=0KXYBFENHD1RD0R7JBY6&pf_rd_s=right-6&pf_rd_t=15506&pf_rd_i=top&ref_=chttp_gnr_19",
+        "https://www.imdb.com/search/title/?title_type=feature&num_votes=25000,&genres=musical&sort=user_rating,desc&start=151&ref_=adv_nxt"]
 
     def parse(self, response):
         movie_item = ImdbCrawlerItem()
