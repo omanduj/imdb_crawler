@@ -151,6 +151,25 @@ def see_all():
     conn.close()
     return movies
 
+def insert_new_movie(name, release_date, viewer_rating, runtime, genre, stars):
+    """Purpose: To insert data on a new movie provided by user
+       Paramaters: name = Name of movie, release_date = Date of move release, viewer_rating = The
+                    rating given to the movie for age viewing, runtime = The duration of movie,
+                    genre = Genre of movie, stars = The star rating of movie
+       Return Value: N/a
+    """
+    conn = sqlite3.connect("movie.db")
+    c = conn.cursor()
+
+    c.execute("""INSERT INTO movie_info (name, release_date, viewer_rating, runtime, genre, stars)
+                VALUES (:name, :release_date, :viewer_rating, :runtime, :genre, :stars)""",
+                {'name': name, 'release_date': release_date, 'viewer_rating': viewer_rating,
+                'runtime': runtime, 'genre': genre, 'stars': stars})
+
+    conn.commit()
+    conn.close()
+
+
 def main():
     # data_base_setup()
     information = get_json()
