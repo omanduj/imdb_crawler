@@ -44,7 +44,7 @@ def find_avg_runtime_per_genre():
             }))
 
 @app.route("/movies/update/personal_rating", methods = ["POST"])
-def update_personal_rating():
+def update_personal_rating_db():
     some_json = request.get_json()
     movies_info = update_personal_rating(some_json['my_rating'], some_json['movie'])
     return(
