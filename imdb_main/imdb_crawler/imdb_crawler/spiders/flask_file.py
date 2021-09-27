@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from logic import select_genre, find_avg_stars, avg_runtime_genre, update_personal_rating, random_movie_picker, fix_data, see_all, insert_new_movie
+from logic import select_genre, find_avg_stars, avg_runtime_genre, update_personal_rating, random_movie_picker, fix_data, see_all, insert_new_movie, select_a_movie
 
 
 app = Flask(__name__)
@@ -69,6 +69,16 @@ def insert_movie():
     return(
         jsonify({
                 'message': 'Movie Inserted!'
+            }))
+
+@app.route("/my_movie", methods = ["POST"])
+def get_X_movie():
+    some_json = request.get_json()
+    movie_name = select_a_movie(some_json['name'])
+    data = fix_data(movie_name)
+    return(
+        jsonify({
+                'message': data[0]
             }))
 
 
