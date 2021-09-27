@@ -169,6 +169,20 @@ def insert_new_movie(name, release_date, viewer_rating, runtime, genre, stars):
     conn.commit()
     conn.close()
 
+def select_a_movie(name):
+    """Purpose: To select of of X name
+       Paramaters: name = name of a movie
+       Return Value:
+    """
+    conn = sqlite3.connect("movie.db")
+    c = conn.cursor()
+
+    c.execute("""SELECT id, name, viewer_rating, runtime, genre, stars, personal_rating, release_date FROM movie_info WHERE name LIKE '%{}%'""".format(name))
+    movie_name = c.fetchall()
+
+    conn.commit()
+    conn.close()
+    return movie_name
 
 def main():
     # data_base_setup()
