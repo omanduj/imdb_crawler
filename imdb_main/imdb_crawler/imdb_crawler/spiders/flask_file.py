@@ -40,7 +40,7 @@ def find_avg_runtime_per_genre():
     movies_info = avg_runtime_genre(some_json['genre'])
     return(
         jsonify({
-                'Avarage runtime for genre': movies_info #fix the over case -> 17:66
+                'Avarage runtime for genre': movies_info
             }))
 
 @app.route("/movies/update/personal_rating", methods = ["POST"])
