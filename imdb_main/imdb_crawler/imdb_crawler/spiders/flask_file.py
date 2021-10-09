@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from logic import select_genre, find_avg_stars, avg_runtime_genre, update_personal_rating, random_movie_picker, fix_data, see_all, insert_new_movie, select_a_movie
 
 
@@ -8,7 +8,9 @@ app = Flask(__name__)
 def see_all_info():
     movies_info = see_all()
     data = fix_data(movies_info)
-    return(jsonify({'movies': data}))
+    return(
+    # render_template('movies_file.html', movies = data)
+    jsonify({'movies': data}))
 
 @app.route("/movies/genre", methods = ["POST"])
 def search_movies_of_genre():
